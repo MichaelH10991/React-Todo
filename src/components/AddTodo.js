@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export class AddTodo extends Component {
 
@@ -10,8 +11,23 @@ export class AddTodo extends Component {
 
     onSubmit = (e) => {
         e.preventDefault()
-        this.props.addTodo(this.state.title)
-        this.setState({ title: '' })
+        // this.props.addTodo(this.state.title)
+        // this.setState({ title: '' })
+        const headers = {
+            Authorization: `Discogs key=, secret=`
+        }
+        let string = this.state.title
+
+        console.log(string)
+        axios({
+            method: "get",
+            url: `https://api.discogs.com/database/search?artist=${string.split(" ")[0]}&title=${string.split(" ")[1]}`,
+            headers: headers
+        }).then(res => {
+            console.log(res.data.results)
+            this.props.showSearchResults(res)
+
+        })
     }
 
     render() {

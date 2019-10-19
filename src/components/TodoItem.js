@@ -15,15 +15,18 @@ export class TodoItem extends Component {
 
   render() {
 
-    const { id, title } = this.props.todo
+    const { id, title, thumb } = this.props.todo
+    // let imageUrl = images[0].resource_url
+    console.log(this.props.todo)
 
     // Use arrow functions or bind this to method invokation
     return (
-      < div style={this.getStyle()} >
+      <div style={this.getStyle()} >
         <p>
           <input type="checkbox" onChange={this.props.markComplete.bind(this, id)} /> {' '}
-          {title}
-          <button style={btnStyle} onClick={this.props.deleteTodo.bind(this, id)}>X</button>
+          <img src={thumb} alt={title}></img>
+          {id} {title}
+          <button onClick={this.props.deleteTodo.bind(this, id)} style={btnStyle}>X</button>
         </p>
       </div >
     )
@@ -38,12 +41,10 @@ const btnStyle = {
   background: '#ff0000',
   color: '#fff',
   border: 'none',
-  padding: '5px 10px',
+  padding: '5px 9px',
   borderRadius: '50%',
   cursor: 'pointer',
   float: 'right'
-
-
 }
 
 export default TodoItem
